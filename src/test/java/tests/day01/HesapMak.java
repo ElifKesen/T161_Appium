@@ -35,15 +35,23 @@ public class HesapMak {
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
 
 
-
         // uygulamanin yuklendigini dogrular(isInstalled)
         Assert.assertTrue(driver.isAppInstalled("com.google.android.calculator"));
 
         // uygulamanin acildigini dogrular
-
+        Assert.assertTrue(driver.findElementById("com.google.android.calculator:id/op_sqrt").isDisplayed());
 
         // 400 un 3 katininin 1200 oldugunu hesap makinasindan dogrulayalim
+        driver.findElementByAccessibilityId("4").click();
+        driver.findElementByAccessibilityId("0").click();
+        driver.findElementByAccessibilityId("0").click();
+        driver.findElementByAccessibilityId("multiply").click();
+        driver.findElementByAccessibilityId("3").click();
 
+        String cikansonuc=driver.findElementById("com.google.android.calculator:id/result_preview").getText();
+
+        int sonuc=1200;
+        Assert.assertEquals(Integer.parseInt(cikansonuc),sonuc);
     }
 
 
