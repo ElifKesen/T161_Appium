@@ -1,8 +1,11 @@
 package tests.day02;
 
+import io.appium.java_client.TouchAction;
 import io.appium.java_client.android.AndroidDriver;
 import io.appium.java_client.android.AndroidElement;
 import io.appium.java_client.remote.MobileCapabilityType;
+import io.appium.java_client.touch.WaitOptions;
+import io.appium.java_client.touch.offset.PointOption;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.testng.Assert;
 import org.testng.annotations.BeforeTest;
@@ -10,6 +13,7 @@ import org.testng.annotations.Test;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
 public class Arabam {
@@ -61,6 +65,47 @@ public class Arabam {
        ilanSayisi=ilanSayisi.replaceAll("\\D","");
 
        Assert.assertTrue(Integer.parseInt(ilanSayisi)>0);
+
+
+    }
+    @Test
+    public void test02() throws InterruptedException {
+        // alt menuden ilan ara butonuna tiklanir
+        Thread.sleep(1500);
+        driver.findElementByXPath("//*[@text='İlan Ara']").click();
+
+        // kategori olarak otomobil secilir
+        Thread.sleep(1500);
+        driver.findElementByXPath("//*[@text='Otomobil']").click();
+
+        // arac olarak Volkswagen secilir
+        Thread.sleep(1500);
+        TouchAction action=new TouchAction<>(driver);
+        action.press(PointOption.point(530,1830)).
+                waitAction(WaitOptions.waitOptions(Duration.ofMillis(70))).
+                moveTo(PointOption.point(530,400)).release().perform();
+
+        // baslangic noktasiyla bitis noktasi arasindaki gecen sure (wait action)
+        // eger sure azalirsa; gidilen yol mesafesi ARTAR. eger sureyi arttirirsan; gidilen yol mesafesi AZALIR !!
+        // yani tamamen bir ters oranti vardir. ekranda daha fazla asagi ya da yukari gitmek istiyorsak birim zamanda sureyi azaltmaliyiz
+
+        driver.findElementByXPath("//*[@text='Volkswagen']").click();
+
+        // arac markasi olarak passat secilir
+        driver.findElementByXPath("//*[@text='Passat']").click();
+
+        // 1.4 TSI BlueMotion secilir
+        driver.findElementByXPath("//*[@text='1.4 TSi BlueMotion']").click();
+
+        // Paket secimi comfortline yapilir
+        driver.findElementByXPath("//*[@text='Comfortline']").click();
+
+        // Ucuzdan pahaliya siralama yaparak filtreleme yapilir
+        //driver.findElementByXPath("//*[@text='Sıralama']").click();
+        action.press(PointOption.point(409,409)).release().perform();
+        driver.findElementByXPath("//*[@text='Fiyat - Ucuzdan Pahalıya']").click();
+
+        // Gelen en ucuz aracin 500.000 tl den buyuk oldugu dogrulanir
 
 
     }
