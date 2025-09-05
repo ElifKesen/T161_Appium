@@ -13,8 +13,15 @@ public class AllCurrencyConPage {
     @FindBy(xpath = "//*[@text='CURRENCY CONVERTER']")
     public WebElement UygulamaAdi;
 
-    @FindBy(xpath = "//*[@text='CURRENCY CONVERTER']")
-    public WebElement Adi;
+    @FindBy(xpath = "//*[@text='2']")
+    public WebElement IkiTusu;
 
+    @FindBy(xpath = "//*[@text='3']")
+    public WebElement UcTusu;
 
+    @FindBy(xpath = "//*[@text='00']")
+    public WebElement ikiSifirTusu;
+
+    @FindBy(id= "com.smartwho.SmartAllCurrencyConverter:id/EditTextCurrencyB")
+    public WebElement SonucAlani;
 }
